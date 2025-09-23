@@ -12,20 +12,16 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest   # GitHub provides Linux VM
 
-    steps:
-      # Step 1: Checkout repo
-      - name: Checkout repository
-        uses: actions/checkout@v3
+   steps:
+   
+  - uses: actions/checkout@v4
 
-      # Step 2: Setup Node.js (Cypress runs on Node)
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+  - name: Install dependencies
+    run: npm install
 
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: npm install
+  - name: Make Cypress binary executable
+    run: chmod +x node_modules/.bin/cypress
+
 
       # Step 4: Run Cypress tests
       - name: Run Cypress tests
