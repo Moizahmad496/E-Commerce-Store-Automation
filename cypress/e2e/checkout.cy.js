@@ -26,7 +26,7 @@ describe("Swag Labs - Checkout Flow Tests", () => {
     cy.get(".shopping_cart_link").click();
     cy.get("[data-test='checkout']").click();
 
-    // Try to continue without filling form
+    // Try to continue without filling form 
     cy.get("[data-test='continue']").click();
     cy.get("[data-test='error']").should(
       "contain.text",
