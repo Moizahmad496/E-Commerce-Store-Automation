@@ -15,7 +15,8 @@ describe("Swag Labs - Checkout Flow Tests", () => {
 
     // Try to checkout
     cy.get("[data-test='checkout']").click();
-
+// fsyagduyasgdyasgfuf dhaisufius dhhdhhdhdhdhdhmmmmmmmm
+//bmbmbmbmbmbmbm
     // Assert: User redirected to checkout info page but with no items
     cy.get(".cart_item").should("not.exist");
   });
