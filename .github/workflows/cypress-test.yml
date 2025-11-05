@@ -5,12 +5,12 @@ name: Cypress Tests
 # When to run this workflow
 on:
   push:
-    branches: [ "main" ]    # Runs on push to main branch
+    branches: ["main"] # Runs on push to main branch
   pull_request:
-    branches: [ "main" ]    # Runs on PR to main branch
+    branches: ["main"] # Runs on PR to main branch
 jobs:
   cypress-run:
-    runs-on: ubuntu-latest   # GitHub provides Linux VM
+    runs-on: ubuntu-latest # GitHub provides Linux VM
 
     steps:
       # Step 1: Checkout repo
@@ -32,7 +32,6 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           spec: cypress/e2e/addtocart.cy.js,cypress/e2e/checkout.cy.js,cypress/e2e/login.cy.js
- 
 
       # (Optional) Upload screenshots if tests fail
       - name: Upload Cypress screenshots
@@ -43,17 +42,14 @@ jobs:
           path: cypress/screenshots
 
       #  Notify n8n on failure
-      
+
       - name: Notify n8n on failure
-        if: failure()   # Only runs if Cypress tests fail
+        if: failure() # Only runs if Cypress tests fail
         run: |
-          curl -X POST http://localhost:5678/webhook-test/a03503b2-5737-4324-b8a4-2d2b58948a05 \
+          curl -X POST https://moiz496.app.n8n.cloud/webhook-test/003ddbb5-aa03-41c0-8b72-1d1d0f0f717a \
           -H "Content-Type: application/json" \
           -d '{
             "repository": "${{ github.repository }}",
             "branch": "${{ github.ref_name }}",
             "runId": "${{ github.run_id }}"
           }'
-
-
-   
