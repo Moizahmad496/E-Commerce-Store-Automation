@@ -44,9 +44,9 @@ jobs:
       #  Notify n8n on failure
 
       - name: Notify n8n on failure
-        if: failure() # Only runs if Cypress tests fail
+        if: failure() # Only runs if Cypress tests fail / First execute the workflow
         run: |
-          curl -X POST https://moiz496.app.n8n.cloud/webhook-test/003ddbb5-aa03-41c0-8b72-1d1d0f0f717a \
+          curl -X POST https://moiz496.app.n8n.cloud/webhook-test/003ddbb5-aa03-41c0-8b72-1d1d0f0f717a \  
           -H "Content-Type: application/json" \
           -d '{
             "repository": "${{ github.repository }}",

@@ -35,7 +35,7 @@ describe("Swag Labs - Checkout Flow Tests", () => {
     );
 
     // Fill only first name
-    cy.get("[data-test='firstName']").type("Moiz");
+    cy.get("[data-test='firstName']").type("Moizzz");
     cy.get("[data-test='continue']").click();
     cy.get("[data-test='error']").should(
       "contain.text",
