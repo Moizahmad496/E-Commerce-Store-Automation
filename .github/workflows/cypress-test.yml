@@ -42,4 +42,18 @@ jobs:
           name: cypress-screenshots
           path: cypress/screenshots
 
+      #  Notify n8n on failure
+      
+      - name: Notify n8n on failure
+        if: failure()   # Only runs if Cypress tests fail
+        run: |
+          curl -X POST http://localhost:5678/webhook-test/a03503b2-5737-4324-b8a4-2d2b58948a05 \
+          -H "Content-Type: application/json" \
+          -d '{
+            "repository": "${{ github.repository }}",
+            "branch": "${{ github.ref_name }}",
+            "runId": "${{ github.run_id }}"
+          }'
+
+
    
