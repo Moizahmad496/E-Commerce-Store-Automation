@@ -44,8 +44,8 @@ jobs:
         run: |
           echo "Sending screenshots to n8n..."
           curl -X POST "https://moiz496.app.n8n.cloud/webhook/003ddbb5-aa03-41c0-8b72-1d1d0f0f717a" \
-          -H "Content-Type: multipart/form-data" \
-          -F "repository=${{ github.repository }}" \
-          -F "branch=${{ github.ref_name }}" \
-          -F "runId=${{ github.run_id }}" \
-          -F "file=@temp/failed_screenshots.zip"
+            -H "Content-Type: multipart/form-data" \
+            -F "repository=${{ github.repository }}" \
+            -F "branch=${{ github.ref_name }}" \
+            -F "runId=${{ github.run_id }}" \
+            -F "file=@temp/failed_screenshots.zip;type=application/zip"
