@@ -11,56 +11,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repo
+      # 1️⃣ Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Setup Node.js
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      # Step 3: Install dependencies
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Run Cypress tests
+      # 4️⃣ Run Cypress tests
       - name: Run Cypress tests
         uses: cypress-io/github-action@v5
         with:
           spec: cypress/e2e/login.cy.js
 
-      # Step 5: Upload Cypress screenshots if tests fail
-      - name: Upload failed screenshots
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: failed-screenshots
-          path: cypress/screenshots/
-
-      # Step 6: Notify n8n workflow if tests fail
-      - name: Notify n8n on failure
+      # 5️⃣ Zip screenshots if tests fail
+      - name: Zip failed screenshots
         if: failure()
         run: |
+          mkdir -p temp
+          zip -r temp/failed_screenshots.zip cypress/screenshots || echo "No screenshots folder found"
+
+      # 6️⃣ Send zipped screenshots directly to n8n
+      - name: Send failed screenshots to n8n
+        if: failure()
+        run: |
+          echo "Sending screenshots to n8n..."
           curl -X POST "https://moiz496.app.n8n.cloud/webhook/003ddbb5-aa03-41c0-8b72-1d1d0f0f717a" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "repository": "${{ github.repository }}",
-            "branch": "${{ github.ref_name }}",
-            "runId": "${{ github.run_id }}",
-            "artifact": "failed-screenshots"
-          }'
-
-  # Second job — always runs and downloads artifacts
-  download-artifacts:
-    runs-on: ubuntu-latest
-    needs: cypress-run
-    if: always() # ensures this runs even if tests fail
-
-    steps:
-      - name: Download failed screenshots
-        uses: actions/download-artifact@v4
-        with:
-          name: failed-screenshots
-          path: ./screenshots
+          -H "Content-Type: multipart/form-data" \
+          -F "repository=${{ github.repository }}" \
+          -F "branch=${{ github.ref_name }}" \
+          -F "runId=${{ github.run_id }}" \
+          -F "file=@temp/failed_screenshots.zip"
