@@ -43,7 +43,7 @@ jobs:
         if: failure()
         run: |
           echo "Sending screenshots to n8n..."
-          curl -X POST "https://moiz496.app.n8n.cloud/webhook/003ddbb5-aa03-41c0-8b72-1d1d0f0f717a" \ 
+          curl -X POST "https://moiz496.app.n8n.cloud/webhook/ae930eeb-057c-4a45-955e-5ac125ab9c61" \ 
             -H "Content-Type: multipart/form-data" \
             -F "repository=${{ github.repository }}" \
             -F "branch=${{ github.ref_name }}" \
