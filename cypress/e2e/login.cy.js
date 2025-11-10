@@ -14,7 +14,7 @@ describe("Login Functionality", () => {
   });
 });
 
-describe("Intentional fail to pipeline", () => {
+describe("Intentional fail", () => {
  it("should fail intentionally", () => {
   expect(true).to.equal(false);
   });
