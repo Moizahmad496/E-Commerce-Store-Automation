@@ -1,0 +1,162 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 4,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-11-10T09:34:31.278Z",
+    "end": "2025-11-10T09:35:01.636Z",
+    "duration": 30358,
+    "testsRegistered": 4,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "82bd0d1d-4dff-4a9a-8569-4a3f31df9030",
+      "title": "",
+      "fullFile": "cypress\\e2e\\checkout.cy.js",
+      "file": "cypress\\e2e\\checkout.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "e61164c2-5f7a-4dce-b31b-37fd5cd69af2",
+          "title": "Swag Labs - Checkout Flow Tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should not allow checkout with an empty cart",
+              "fullTitle": "Swag Labs - Checkout Flow Tests should not allow checkout with an empty cart",
+              "timedOut": null,
+              "duration": 7334,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get(\".shopping_cart_link\").click();\ncy.url().should(\"include\", \"/cart.html\");\n// Try to checkout\ncy.get(\"[data-test='checkout']\").click();\n// fsyagduyasgdyasgfuf dhaisufius dhhdhhdhdhdhdhmmmmmmmm\n//bmbmbmbmbmbmbm\n// Assert: User redirected to checkout info page but with no items\ncy.get(\".cart_item\").should(\"not.exist\");",
+              "err": {},
+              "uuid": "bf03114d-921a-4470-afa8-a05fd5441492",
+              "parentUUID": "e61164c2-5f7a-4dce-b31b-37fd5cd69af2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should require mandatory information in checkout form",
+              "fullTitle": "Swag Labs - Checkout Flow Tests should require mandatory information in checkout form",
+              "timedOut": null,
+              "duration": 7065,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Add item to cart\ncy.get(\"[data-test='add-to-cart-sauce-labs-backpack']\").click();\ncy.get(\".shopping_cart_link\").click();\ncy.get(\"[data-test='checkout']\").click();\n// Try to continue without filling form \ncy.get(\"[data-test='continue']\").click();\ncy.get(\"[data-test='error']\").should(\"contain.text\", \"Error: First Name is required\");\n// Fill only first name\ncy.get(\"[data-test='firstName']\").type(\"Moizzz\");\ncy.get(\"[data-test='continue']\").click();\ncy.get(\"[data-test='error']\").should(\"contain.text\", \"Error: Last Name is required\");",
+              "err": {},
+              "uuid": "053ad12b-54d4-4f5b-a664-8e5710726951",
+              "parentUUID": "e61164c2-5f7a-4dce-b31b-37fd5cd69af2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should complete checkout successfully with valid info",
+              "fullTitle": "Swag Labs - Checkout Flow Tests should complete checkout successfully with valid info",
+              "timedOut": null,
+              "duration": 7144,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Add multiple products\ncy.get(\"[data-test='add-to-cart-sauce-labs-backpack']\").click();\ncy.get(\"[data-test='add-to-cart-sauce-labs-bike-light']\").click();\n// Go to cart\ncy.get(\".shopping_cart_link\").click();\ncy.get(\"[data-test='checkout']\").click();\n// Fill in checkout info\ncy.get(\"[data-test='firstName']\").type(\"Moiz\");\ncy.get(\"[data-test='lastName']\").type(\"Ahmad\");\ncy.get(\"[data-test='postalCode']\").type(\"12345\");\ncy.get(\"[data-test='continue']\").click();\n// Assert: Verify items in checkout overview\ncy.get(\".cart_item\").should(\"have.length\", 2);\ncy.contains(\"Sauce Labs Backpack\").should(\"be.visible\");\ncy.contains(\"Sauce Labs Bike Light\").should(\"be.visible\");\n// Finish checkout\ncy.get(\"[data-test='finish']\").click();\n// Assert: Verify order confirmation\ncy.url().should(\"include\", \"/checkout-complete.html\");\ncy.contains(\"Thank you\").should(\"be.visible\");",
+              "err": {},
+              "uuid": "5a400eb3-bca7-48f8-bf5f-275912b55c07",
+              "parentUUID": "e61164c2-5f7a-4dce-b31b-37fd5cd69af2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should allow user to cancel checkout and return to cart",
+              "fullTitle": "Swag Labs - Checkout Flow Tests should allow user to cancel checkout and return to cart",
+              "timedOut": null,
+              "duration": 6925,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get(\"[data-test='add-to-cart-sauce-labs-bolt-t-shirt']\").click();\ncy.get(\".shopping_cart_link\").click();\ncy.get(\"[data-test='checkout']\").click();\n// Fill in partial info\ncy.get(\"[data-test='firstName']\").type(\"Test\");\ncy.get(\"[data-test='lastName']\").type(\"User\");\ncy.get(\"[data-test='postalCode']\").type(\"40000\");\n// Cancel\ncy.get(\"[data-test='cancel']\").click();\n// Assert: Should go back to cart page\ncy.url().should(\"include\", \"/cart.html\");\ncy.contains(\"Your Cart\").should(\"be.visible\");",
+              "err": {},
+              "uuid": "c3a36780-8302-4b68-8892-3f7722770ad5",
+              "parentUUID": "e61164c2-5f7a-4dce-b31b-37fd5cd69af2",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "bf03114d-921a-4470-afa8-a05fd5441492",
+            "053ad12b-54d4-4f5b-a664-8e5710726951",
+            "5a400eb3-bca7-48f8-bf5f-275912b55c07",
+            "c3a36780-8302-4b68-8892-3f7722770ad5"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 28468,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

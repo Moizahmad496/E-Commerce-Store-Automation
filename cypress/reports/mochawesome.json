@@ -1,0 +1,181 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 5,
+    "passes": 5,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-11-10T09:33:48.573Z",
+    "end": "2025-11-10T09:34:29.460Z",
+    "duration": 40887,
+    "testsRegistered": 5,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "ef511696-001b-4456-812f-7652a079602e",
+      "title": "",
+      "fullFile": "cypress\\e2e\\addtocart.cy.js",
+      "file": "cypress\\e2e\\addtocart.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "93a972fb-3f36-4047-8e2b-6f50044c67e4",
+          "title": "Swag Labs - Add to Cart Tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should add a single product to the cart",
+              "fullTitle": "Swag Labs - Add to Cart Tests should add a single product to the cart",
+              "timedOut": null,
+              "duration": 7977,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get(\"[data-test='add-to-cart-sauce-labs-backpack']\").click();\n// Assertion: Cart badge shows 1\ncy.get(\".shopping_cart_badge\").should(\"contain\", \"1\");",
+              "err": {},
+              "uuid": "374e155f-7a03-4d12-b08b-6a90040a83bf",
+              "parentUUID": "93a972fb-3f36-4047-8e2b-6f50044c67e4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should add multiple products to the cart",
+              "fullTitle": "Swag Labs - Add to Cart Tests should add multiple products to the cart",
+              "timedOut": null,
+              "duration": 6741,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get(\"[data-test='add-to-cart-sauce-labs-backpack']\").click();\ncy.get(\"[data-test='add-to-cart-sauce-labs-bike-light']\").click();\ncy.get(\"[data-test='add-to-cart-sauce-labs-bolt-t-shirt']\").click();\n// Assertion: Cart badge shows 3\ncy.get(\".shopping_cart_badge\").should(\"contain\", \"3\");",
+              "err": {},
+              "uuid": "4db20050-6368-4ef4-832d-e71e37be7b3e",
+              "parentUUID": "93a972fb-3f36-4047-8e2b-6f50044c67e4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should remove a product from the cart",
+              "fullTitle": "Swag Labs - Add to Cart Tests should remove a product from the cart",
+              "timedOut": null,
+              "duration": 6134,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get(\"[data-test='add-to-cart-sauce-labs-backpack']\").click();\ncy.get(\"[data-test='remove-sauce-labs-backpack']\").click();\n// Assertion: Cart badge should not exist\ncy.get(\".shopping_cart_badge\").should(\"not.exist\");",
+              "err": {},
+              "uuid": "cf49b2d5-46a0-4936-8100-01c925b31de4",
+              "parentUUID": "93a972fb-3f36-4047-8e2b-6f50044c67e4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should navigate to cart page and verify added items",
+              "fullTitle": "Swag Labs - Add to Cart Tests should navigate to cart page and verify added items",
+              "timedOut": null,
+              "duration": 6266,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get(\"[data-test='add-to-cart-sauce-labs-backpack']\").click();\ncy.get(\"[data-test='add-to-cart-sauce-labs-bike-light']\").click();\n// Go to cart page\ncy.get(\".shopping_cart_link\").click();\ncy.url().should(\"include\", \"/cart.html\");\n// Assertions: Ensure items exist in cart\ncy.get(\".cart_item\").should(\"have.length\", 2);\ncy.contains(\"Sauce Labs Backpack\").should(\"be.visible\");\ncy.contains(\"Sauce Labs Bike Light\").should(\"be.visible\");",
+              "err": {},
+              "uuid": "242a5cc4-1df7-4729-b5a0-081710376d2f",
+              "parentUUID": "93a972fb-3f36-4047-8e2b-6f50044c67e4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should keep cart items after page reload",
+              "fullTitle": "Swag Labs - Add to Cart Tests should keep cart items after page reload",
+              "timedOut": null,
+              "duration": 11185,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get(\"[data-test='add-to-cart-sauce-labs-backpack']\").click();\n// Reload page\ncy.reload();\n// Cart badge should still show 1\ncy.get(\".shopping_cart_badge\").should(\"contain\", \"1\");",
+              "err": {},
+              "uuid": "461b3bc3-8523-4489-9a9b-ea8e4172bac0",
+              "parentUUID": "93a972fb-3f36-4047-8e2b-6f50044c67e4",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "374e155f-7a03-4d12-b08b-6a90040a83bf",
+            "4db20050-6368-4ef4-832d-e71e37be7b3e",
+            "cf49b2d5-46a0-4936-8100-01c925b31de4",
+            "242a5cc4-1df7-4729-b5a0-081710376d2f",
+            "461b3bc3-8523-4489-9a9b-ea8e4172bac0"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 38303,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
