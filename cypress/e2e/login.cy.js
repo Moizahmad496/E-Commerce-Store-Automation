@@ -14,8 +14,8 @@ describe("Login Functionality", () => {
   });
 });
 
-// describe("Intentional fail", () => {
-// it("should fail intentionally", () => {
- // expect(true).to.equal(false);
-  //});
-//});
+describe("Intentional fail", () => {
+ it("should fail intentionally", () => {
+  expect(true).to.equal(false);
+  });
+});
