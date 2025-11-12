@@ -29,7 +29,9 @@ jobs:
       - name: Run Cypress tests
         uses: cypress-io/github-action@v5
         with:
-          spec: cypress/e2e/login.cy.js
+          spec: |
+           cypress/e2e/login.cy.js
+           cypress/e2e/checkout.cy.js
 
       # 5️⃣ Send failed screenshots individually to n8n
       - name: Send failed screenshots to n8n
