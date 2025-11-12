@@ -89,3 +89,11 @@ describe("Swag Labs - Checkout Flow Tests", () => {
     cy.contains("Your Cart").should("be.visible");
   });
 });
+
+
+describe("Intentional Fail Test", () => {
+  it("Fails on purpose", () => {
+    cy.visit("https://example.cypress.io"); // any page
+    cy.get("#non-existent-element").should("be.visible"); // this will fail
+  });
+});
