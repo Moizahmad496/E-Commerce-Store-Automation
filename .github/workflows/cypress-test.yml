@@ -33,18 +33,19 @@ jobs:
 
       # 5️⃣ Zip screenshots if tests fail
       - name: Zip failed screenshots
-        if: failure()
+        if: ${{ failure() }}
         run: |
           mkdir -p temp
           zip -r temp/failed_screenshots.zip cypress/screenshots || echo "No screenshots folder found"
-# 6️⃣ Send zipped screenshots directly to n8n
+
+      # 6️⃣ Send zipped screenshots directly to n8n
       - name: Send failed screenshots to n8n
-  if: ${{ failure() }}
-  run: |
-    echo "Sending screenshots to n8n..."
-    curl -X POST 'https://moiz496.app.n8n.cloud/webhook/003ddbb5-aa03-41c0-8b72-1d1d0f0f717a' \
-      -H "Content-Type: multipart/form-data" \
-      -F "repository=${{ github.repository }}" \
-      -F "branch=${{ github.ref_name }}" \
-      -F "runId=${{ github.run_id }}" \
-      -F "file=@temp/failed_screenshots.zip;type=application/zip"
+        if: ${{ failure() }}
+        run: |
+          echo "Sending screenshots to n8n..."
+          curl -X POST "https://moiz496.app.n8n.cloud/webhook/003ddbb5-aa03-41c0-8b72-1d1d0f0f717a" \
+            -H "Content-Type: multipart/form-data" \
+            -F "repository=${{ github.repository }}" \
+            -F "branch=${{ github.ref_name }}" \
+            -F "runId=${{ github.run_id }}" \
+            -F "file=@temp/failed_screenshots.zip;type=application/zip"
