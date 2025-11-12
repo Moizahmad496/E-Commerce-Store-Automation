@@ -15,7 +15,14 @@ describe("Login Functionality", () => {
 });
 
 describe("Intentional fail", () => {
- it("should fail intentionally", () => {
-  expect(true).to.equal(false);
+  it("should fail intentionally", () => {
+    expect(true).to.equal(false);
+  });
+});
+
+describe("Intentional Fail Test", () => {
+  it("Fails on purpose", () => {
+    cy.visit("https://example.cypress.io"); // any page
+    cy.get("#non-existent-element").should("be.visible"); // this will fail
   });
 });
