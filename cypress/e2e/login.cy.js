@@ -20,9 +20,3 @@ describe("Intentional fail", () => {
   });
 });
 
-describe("Intentional Fail Test", () => {
-  it("Fails on purpose", () => {
-    cy.visit("https://example.cypress.io"); // any page
-    cy.get("#non-existent-element").should("be.visible"); // this will fail
-  });
-});
