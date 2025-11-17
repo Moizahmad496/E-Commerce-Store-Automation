@@ -8,17 +8,10 @@ module.exports = defineConfig({
     html: true,
     json: true,
   },
-
   e2e: {
     setupNodeEvents(on, config) {
-      // Screenshot overwrite fix
-      on("before:browser:launch", () => {
-        Cypress.Screenshot.defaults({
-          overwrite: false,
-        });
-      });
-
-      return config;
+      return config; // nothing else needed here
     },
   },
 });
+
