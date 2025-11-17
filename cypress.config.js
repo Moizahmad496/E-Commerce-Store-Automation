@@ -14,3 +14,7 @@ module.exports = defineConfig({
     },
   },
 });
+
+Cypress.Screenshot.defaults({
+  overwrite: false
+});
