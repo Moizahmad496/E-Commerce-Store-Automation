@@ -1,0 +1,167 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 3,
+    "passes": 2,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-11-20T05:20:19.837Z",
+    "end": "2025-11-20T05:20:31.873Z",
+    "duration": 12036,
+    "testsRegistered": 3,
+    "passPercent": 66.66666666666666,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "e83e1507-e1b9-4403-8f60-d4fc3726f25c",
+      "title": "",
+      "fullFile": "cypress\\e2e\\login.cy.js",
+      "file": "cypress\\e2e\\login.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "9b39caa4-b9e2-4961-a4cd-aaad8594246c",
+          "title": "Login Functionality",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Should login with valid credentials",
+              "fullTitle": "Login Functionality Should login with valid credentials",
+              "timedOut": null,
+              "duration": 7413,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.login(_credentials.default.validUser.username, _credentials.default.validUser.password);\ncy.get(\".title\").should(\"contain.text\", \"Products\");",
+              "err": {},
+              "uuid": "abe04a53-b32d-4736-b97e-a259bef1b49a",
+              "parentUUID": "9b39caa4-b9e2-4961-a4cd-aaad8594246c",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Should fail with invalid credentials",
+              "fullTitle": "Login Functionality Should fail with invalid credentials",
+              "timedOut": null,
+              "duration": 1527,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.login(_credentials.default.invalidUser.username, _credentials.default.invalidUser.password);\ncy.contains(\"Epic sadface: Username and password do not match any user in this service\").should(\"be.visible\");",
+              "err": {},
+              "uuid": "ed8d5ac7-7688-4f93-b309-b4db56457092",
+              "parentUUID": "9b39caa4-b9e2-4961-a4cd-aaad8594246c",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "abe04a53-b32d-4736-b97e-a259bef1b49a",
+            "ed8d5ac7-7688-4f93-b309-b4db56457092"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 8940,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "b556f743-cb70-414f-9d98-8b34bf100dfb",
+          "title": "Intentional fail",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should fail intentionally",
+              "fullTitle": "Intentional fail should fail intentionally",
+              "timedOut": null,
+              "duration": 203,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "expect(true).to.equal(false);",
+              "err": {
+                "message": "AssertionError: expected true to equal false",
+                "estack": "AssertionError: expected true to equal false\n    at Context.eval (webpack://swaglabs_automation/./cypress/e2e/login.cy.js:19:20)",
+                "diff": null
+              },
+              "uuid": "3a133114-d589-43a9-af3b-202dd39c94c9",
+              "parentUUID": "b556f743-cb70-414f-9d98-8b34bf100dfb",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "3a133114-d589-43a9-af3b-202dd39c94c9"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 203,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

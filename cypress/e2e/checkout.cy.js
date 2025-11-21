@@ -1,13 +1,14 @@
 describe("Swag Labs - Checkout Flow Tests", () => {
   beforeEach(() => {
     // Step 1: Login before each test
-    cy.readFile('cypress/fixtures/credentials.json').then((user) => {
-     cy.login(user.validUser.username, user.validUser.password);
+    cy.readFile("cypress/fixtures/credentials.json").then((user) => {
+      cy.login(user.validUser.username, user.validUser.password);
 
-    // Assertion: Ensure we are on inventory page
-    cy.url().should("include", "/inventory.html");
-    cy.get(".title").should("contain.text", "Products");
-}) });
+      // Assertion: Ensure we are on inventory page
+      cy.url().should("include", "/inventory.html");
+      cy.get(".title").should("contain.text", "Products");
+    });
+  });
 
   it("should not allow checkout with an empty cart", () => {
     cy.get(".shopping_cart_link").click();
@@ -15,8 +16,7 @@ describe("Swag Labs - Checkout Flow Tests", () => {
 
     // Try to checkout
     cy.get("[data-test='checkout']").click();
-// fsyagduyasgdyasgfuf dhaisufius dhhdhhdhdhdhdhmmmmmmmm
-//bmbmbmbmbmbmbm
+ 
     // Assert: User redirected to checkout info page but with no items
     cy.get(".cart_item").should("not.exist");
   });
@@ -27,7 +27,7 @@ describe("Swag Labs - Checkout Flow Tests", () => {
     cy.get(".shopping_cart_link").click();
     cy.get("[data-test='checkout']").click();
 
-    // Try to continue without filling form 
+    // Try to continue without filling form
     cy.get("[data-test='continue']").click();
     cy.get("[data-test='error']").should(
       "contain.text",
@@ -87,13 +87,65 @@ describe("Swag Labs - Checkout Flow Tests", () => {
     // Assert: Should go back to cart page
     cy.url().should("include", "/cart.html");
     cy.contains("Your Cart").should("be.visible");
+
+    // Edge Cases
+
+  it("should not allow checkout with invalid postal code", () => {
+    cy.get("[data-test='add-to-cart-sauce-labs-backpack']").click();
+    cy.get(".shopping_cart_link").click();
+    cy.get("[data-test='checkout']").click();
+    
+    cy.get("[data-test='firstName']").type("John");
+    cy.get("[data-test='lastName']").type("Doe");
+    cy.get("[data-test='postalCode']").type("1234A"); // Invalid postal code
+    cy.get("[data-test='continue']").click();
+    
+    // Assert error message
+    cy.get("[data-test='error']").should("contain.text", "Error: Postal Code is invalid");
+  });
+
+  it("should handle extremely long names", () => {
+    cy.get("[data-test='add-to-cart-sauce-labs-backpack']").click();
+    cy.get(".shopping_cart_link").click();
+    cy.get("[data-test='checkout']").click();
+    
+    const longName = 'A'.repeat(256); // Extremely long name (256 characters)
+    cy.get("[data-test='firstName']").type(longName);
+    cy.get("[data-test='lastName']").type(longName);
+    cy.get("[data-test='postalCode']").type("12345");
+    cy.get("[data-test='continue']").click();
+    
+    // Handling excessively long names, expect any specific error or success based on application limits
+    cy.get("[data-test='error']").should("exist");
+  });
+
+  it("should not accept special characters in names and postal code", () => {
+    cy.get("[data-test='add-to-cart-sauce-labs-backpack']").click();
+    cy.get(".shopping_cart_link").click();
+    cy.get("[data-test='checkout']").click();
+    
+    cy.get("[data-test='firstName']").type("John@Doe");
+    cy.get("[data-test='lastName']").type("Doe#");
+    cy.get("[data-test='postalCode']").type("123!@#"); // Special chars in postal code
+    cy.get("[data-test='continue']").click();
+    
+    // Assert appropriate error messages
+    cy.get("[data-test='error']").should("contain.text", "Error: First Name is invalid");
+  });
+
+  it("should handle input with leading and trailing whitespace", () => {
+    cy.get("[data-test='add-to-cart-sauce-labs-backpack']").click();
+    cy.get(".shopping_cart_link").click();
+    cy.get("[data-test='checkout']").click();
+    
+    cy.get("[data-test='firstName']").type("  Test  "); // Leading and trailing spaces
+    cy.get("[data-test='lastName']").type("  User  ");
+    cy.get("[data-test='postalCode']").type("  12345  ");
+    cy.get("[data-test='continue']").click();
+    
+    // Assert: Should proceed if handled correctly
+    cy.url().should("include", "/checkout-step-two.html");
   });
 });
 
-
-describe("Intentional Fail Test", () => {
-  it("Fails on purpose", () => {
-    cy.visit("https://example.cypress.io"); // any page
-    cy.get("#non-existent-element").should("be.visible"); // this will fail
-  });
 });
