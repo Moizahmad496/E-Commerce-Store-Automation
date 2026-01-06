@@ -16,7 +16,7 @@ describe("Swag Labs - Checkout Flow Tests", () => {
 
     // Try to checkout
     cy.get("[data-test='checkout']").click();
- 
+
     // Assert: User redirected to checkout info page but with no items
     cy.get(".cart_item").should("not.exist");
   });
@@ -48,7 +48,7 @@ describe("Swag Labs - Checkout Flow Tests", () => {
     cy.get("[data-test='add-to-cart-sauce-labs-backpack']").click();
     cy.get("[data-test='add-to-cart-sauce-labs-bike-light']").click();
 
-    // Go to cart
+    // Go to cart and proceed to the checkout
     cy.get(".shopping_cart_link").click();
     cy.get("[data-test='checkout']").click();
 
@@ -90,62 +90,66 @@ describe("Swag Labs - Checkout Flow Tests", () => {
 
     // Edge Cases
 
-  it("should not allow checkout with invalid postal code", () => {
-    cy.get("[data-test='add-to-cart-sauce-labs-backpack']").click();
-    cy.get(".shopping_cart_link").click();
-    cy.get("[data-test='checkout']").click();
-    
-    cy.get("[data-test='firstName']").type("John");
-    cy.get("[data-test='lastName']").type("Doe");
-    cy.get("[data-test='postalCode']").type("1234A"); // Invalid postal code
-    cy.get("[data-test='continue']").click();
-    
-    // Assert error message
-    cy.get("[data-test='error']").should("contain.text", "Error: Postal Code is invalid");
-  });
+    it("should not allow checkout with invalid postal code", () => {
+      cy.get("[data-test='add-to-cart-sauce-labs-backpack']").click();
+      cy.get(".shopping_cart_link").click();
+      cy.get("[data-test='checkout']").click();
 
-  it("should handle extremely long names", () => {
-    cy.get("[data-test='add-to-cart-sauce-labs-backpack']").click();
-    cy.get(".shopping_cart_link").click();
-    cy.get("[data-test='checkout']").click();
-    
-    const longName = 'A'.repeat(256); // Extremely long name (256 characters)
-    cy.get("[data-test='firstName']").type(longName);
-    cy.get("[data-test='lastName']").type(longName);
-    cy.get("[data-test='postalCode']").type("12345");
-    cy.get("[data-test='continue']").click();
-    
-    // Handling excessively long names, expect any specific error or success based on application limits
-    cy.get("[data-test='error']").should("exist");
-  });
+      cy.get("[data-test='firstName']").type("John");
+      cy.get("[data-test='lastName']").type("Doe");
+      cy.get("[data-test='postalCode']").type("1234"); // Invalid postal code
+      cy.get("[data-test='continue']").click();
 
-  it("should not accept special characters in names and postal code", () => {
-    cy.get("[data-test='add-to-cart-sauce-labs-backpack']").click();
-    cy.get(".shopping_cart_link").click();
-    cy.get("[data-test='checkout']").click();
-    
-    cy.get("[data-test='firstName']").type("John@Doe");
-    cy.get("[data-test='lastName']").type("Doe#");
-    cy.get("[data-test='postalCode']").type("123!@#"); // Special chars in postal code
-    cy.get("[data-test='continue']").click();
-    
-    // Assert appropriate error messages
-    cy.get("[data-test='error']").should("contain.text", "Error: First Name is invalid");
-  });
+      // Assert error message
+      cy.get("[data-test='error']").should(
+        "contain.text",
+        "Error: Postal Code is invalid"
+      );
+    });
+    it("should handle extremely long names", () => {
+      cy.get("[data-test='add-to-cart-sauce-labs-backpack']").click();
+      cy.get(".shopping_cart_link").click();
+      cy.get("[data-test='checkout']").click();
 
-  it("should handle input with leading and trailing whitespace", () => {
-    cy.get("[data-test='add-to-cart-sauce-labs-backpack']").click();
-    cy.get(".shopping_cart_link").click();
-    cy.get("[data-test='checkout']").click();
-    
-    cy.get("[data-test='firstName']").type("  Test  "); // Leading and trailing spaces
-    cy.get("[data-test='lastName']").type("  User  ");
-    cy.get("[data-test='postalCode']").type("  12345  ");
-    cy.get("[data-test='continue']").click();
-    
-    // Assert: Should proceed if handled correctly
-    cy.url().should("include", "/checkout-step-two.html");
-  });
-});
+      const longName = "A".repeat(256); // Extremely long name (256 characters)
+      cy.get("[data-test='firstName']").type(longName);
+      cy.get("[data-test='lastName']").type(longName);
+      cy.get("[data-test='postalCode']").type("12345");
+      cy.get("[data-test='continue']").click();
 
+      // Handling excessively long names, expect any specific error or success based on application limits
+      cy.get("[data-test='error']").should("exist");
+    });
+
+    it("should not accept special characters in names and postal code", () => {
+      cy.get("[data-test='add-to-cart-sauce-labs-backpack']").click();
+      cy.get(".shopping_cart_link").click();
+      cy.get("[data-test='checkout']").click();
+
+      cy.get("[data-test='firstName']").type("John@Doe");
+      cy.get("[data-test='lastName']").type("Doe#");
+      cy.get("[data-test='postalCode']").type("123!@#"); // Special chars in postal code
+      cy.get("[data-test='continue']").click();
+
+      // Assert appropriate error messages
+      cy.get("[data-test='error']").should(
+        "contain.text",
+        "Error: First Name is invalid"
+      );
+    });
+
+    it("should handle input with leading and trailing whitespace", () => {
+      cy.get("[data-test='add-to-cart-sauce-labs-backpack']").click();
+      cy.get(".shopping_cart_link").click();
+      cy.get("[data-test='checkout']").click();
+
+      cy.get("[data-test='firstName']").type("  Test  "); // Leading and trailing spaces
+      cy.get("[data-test='lastName']").type("  User  ");
+      cy.get("[data-test='postalCode']").type("  12345  ");
+      cy.get("[data-test='continue']").click();
+
+      // Assert: Should proceed if handled correctly
+      cy.url().should("include", "/checkout-step-two.html");
+    });
+  });
 });
